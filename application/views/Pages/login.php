@@ -62,7 +62,7 @@ require DOC_ROOT_PATH . $this->config->item('header1');
                 </div>
 
                 <div class="form-button-group  transparent">
-                    <button type="button" onclick="dashboard()" class="btn btn-primary btn-block btn-lg">Log in</button>
+                    <button id="btnlogin" class="btn btn-primary btn-block btn-lg">Log in</button>
                 </div>
 
             </form>
@@ -77,12 +77,7 @@ require DOC_ROOT_PATH . $this->config->item('header1');
 
     ?>
     <script>
-        function dashboard()
-        {
-            window.location.href = "<?php echo base_url(); ?>dashboard";
-        }
-
-
+        
         $('#btnlogin').click(function(e){
             e.preventDefault();
             var name          = $("#member_phone").val();
