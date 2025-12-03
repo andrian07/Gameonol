@@ -34,7 +34,7 @@ require DOC_ROOT_PATH . $this->config->item('header1');
                         <div class="form-group basic">
                             <div class="input-wrapper">
                                 <label class="label" for="email1">No HP</label>
-                                <input type="number" class="form-control" id="member_phone" placeholder="No HP">
+                                <input type="number" class="form-control" id=" " placeholder="No HP">
                                 <i class="clear-input">
                                     <ion-icon name="close-circle"></ion-icon>
                                 </i>
@@ -92,19 +92,19 @@ require DOC_ROOT_PATH . $this->config->item('header1');
 
             $.ajax({
                 type: "POST",
-                url: "<?php echo base_url(); ?>Register/save_member",
+                url: "<?php echo base_url(); ?>Auth/login",
                 dataType: "json",   
                 data: {
                     [csrfName]: csrfHash,    // kirim CSRF DINAMIS
                     name:name,
                     pass:pass
-                },
+                },                                                               
                 success : function(data){
                     console.log(data);
                     if (data.result.csrf_name && data.result.csrf_hash) {
                         $('meta[name=csrf-name]').attr('content', data.result.csrf_name);
                         $('meta[name=csrf-hash]').attr('content', data.result.csrf_hash);
-                    }
+                    }            
                     if (data.code == "200"){
                         window.location.href = "<?php echo base_url(); ?>Masterdata/brand";
                         Swal.fire('Saved!', '', 'success');

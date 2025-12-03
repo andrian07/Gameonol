@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 
-$config['base_url']    = 'http://localhost/Gameon/';
+$config['base_url']    = 'http://localhost/Gameonol/';
 $config['header1'] = "Gameonol/application/views/Pages/header1.php";
 $config['footer1'] = "Gameonol/application/views/Pages/footer1.php";
 
