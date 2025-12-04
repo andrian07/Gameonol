@@ -34,7 +34,7 @@ require DOC_ROOT_PATH . $this->config->item('header1');
                         <div class="form-group basic">
                             <div class="input-wrapper">
                                 <label class="label" for="email1">No HP</label>
-                                <input type="number" class="form-control" id=" " placeholder="No HP">
+                                <input type="number" class="form-control" id="name" placeholder="No HP">
                                 <i class="clear-input">
                                     <ion-icon name="close-circle"></ion-icon>
                                 </i>
@@ -44,7 +44,7 @@ require DOC_ROOT_PATH . $this->config->item('header1');
                         <div class="form-group basic">
                             <div class="input-wrapper">
                                 <label class="label" for="password1">Password</label>
-                                <input type="password" class="form-control" id="member_password" placeholder="Password">
+                                <input type="password" class="form-control" id="password" placeholder="Password">
                                 <i class="clear-input">
                                     <ion-icon name="close-circle"></ion-icon>
                                 </i>
@@ -77,11 +77,11 @@ require DOC_ROOT_PATH . $this->config->item('header1');
 
     ?>
     <script>
-        
+
         $('#btnlogin').click(function(e){
             e.preventDefault();
-            var name          = $("#member_phone").val();
-            var pass          = $("#member_password").val();
+            var name          = $("#name").val();
+            var pass          = $("#password").val();
             let csrfName      = $('meta[name=csrf-name]').attr('content');
             let csrfHash      = $('meta[name=csrf-hash]').attr('content');
 
@@ -101,8 +101,7 @@ require DOC_ROOT_PATH . $this->config->item('header1');
                         $('meta[name=csrf-hash]').attr('content', data.result.csrf_hash);
                     }            
                     if (data.code == "200"){
-                        window.location.href = "<?php echo base_url(); ?>Masterdata/brand";
-                        Swal.fire('Saved!', '', 'success');
+                        window.location.href = "<?php echo base_url(); ?>Dashboard";
                     }else {
                       Swal.fire({
                         icon: 'error',

@@ -527,7 +527,7 @@ require DOC_ROOT_PATH . $this->config->item('header1');
                         </a>
                     </li>
                     <li>
-                        <a href="app-login.html" class="item">
+                        <a href="<?php echo base_url();?>Auth/logout" class="item">
                             <div class="icon-box bg-primary">
                                 <ion-icon name="log-out-outline"></ion-icon>
                             </div>

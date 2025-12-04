@@ -158,7 +158,6 @@ require DOC_ROOT_PATH . $this->config->item('header1');
                     referal_code:referal_code
                 },
                 success : function(data){
-                    console.log(data);
                     if (data.result.csrf_name && data.result.csrf_hash) {
                         $('meta[name=csrf-name]').attr('content', data.result.csrf_name);
                         $('meta[name=csrf-hash]').attr('content', data.result.csrf_hash);
