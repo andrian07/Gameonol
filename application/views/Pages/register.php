@@ -72,8 +72,8 @@ require DOC_ROOT_PATH . $this->config->item('header1');
                             <div class="input-wrapper">
                                 <label class="label" for="gender">Jenis Kelamin</label>
                                 <select class="form-control" id="gender">
-                                    <option value="Pria">Pria</option>
-                                    <option value="Wanita">Wanita</option>
+                                    <option value="L">Pria</option>
+                                    <option value="P">Wanita</option>
                                 </select>
                                 <i class="clear-input">
                                     <ion-icon name="close-circle"></ion-icon>
@@ -158,12 +158,13 @@ require DOC_ROOT_PATH . $this->config->item('header1');
                     referal_code:referal_code
                 },
                 success : function(data){
+                    console.log(data);
                     if (data.result.csrf_name && data.result.csrf_hash) {
                         $('meta[name=csrf-name]').attr('content', data.result.csrf_name);
                         $('meta[name=csrf-hash]').attr('content', data.result.csrf_hash);
                     }
                     if (data.code == "200"){
-                        window.location.href = "<?php echo base_url(); ?>Masterdata/brand";
+                        window.location.href = "<?php echo base_url(); ?>Auth";
                         Swal.fire('Saved!', '', 'success');
                     }else {
                       Swal.fire({

@@ -22,7 +22,9 @@ class Auth extends CI_Controller {
 	private function check_auth()
 	{
 		if(isset($_SESSION['user_name']) == null){
-			$this->load->view('Pages/login');
+			return 0;
+		}else{
+			return 1;
 		}
 	}
 
@@ -30,22 +32,30 @@ class Auth extends CI_Controller {
 	{
 		$user_id = $_SESSION['user_id'];
 		$check_cookies = $this->global_model->check_cookies($user_id)->result_array();
-		$cookies_name = $_COOKIE['cookies_name'];
-		if($check_cookies[0]['member_cookies'] != $cookies_name){
+		if($check_cookies == null){
 			return 0;
 		}else{
-			return 1;
+			$cookies_name = $_COOKIE['cookies_name'];
+			if($check_cookies[0]['member_cookies'] != $cookies_name){
+				return 0;
+			}else{
+				return 1;
+			}
 		}
 	}
 
 	public function index()
 	{
-		$this->check_auth();
-		$check_cokies = $this->check_cookies();
-		if($check_cokies == 0){
+		$check_auth = $this->check_auth();
+		if($check_auth == 0){
 			$this->load->view('Pages/login');
 		}else{
-			redirect('Dashboard', 'refresh');
+			$check_cokies = $this->check_cookies();
+			if($check_cokies == 0){
+				$this->load->view('Pages/login');
+			}else{
+				redirect('Dashboard', 'refresh');
+			}
 		}
 	}
 
@@ -124,11 +134,11 @@ class Auth extends CI_Controller {
 	}
 
 	public function logout(){
-		print_r($_COOKIE);
-		//$this->session->sess_destroy();
-		//delete_cookie('csrf_cookie_gameon');
-		//delete_cookie('cookies_name');
-		//redirect('Auth', 'refresh');
+		//print_r($_COOKIE);
+		$this->session->sess_destroy();
+		delete_cookie('csrf_cookie_gameon');
+		delete_cookie('cookies_name');
+		redirect('Auth', 'refresh');
 	}
 
 	public function role_permission(){

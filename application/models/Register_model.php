@@ -21,6 +21,15 @@ class register_model extends CI_Model {
         return $query;
     }
 
+    public function check_code($code)
+    {
+        $this->db->select('*');
+        $this->db->from('member');
+        $this->db->where('member_code', $code);
+        $query = $this->db->get();
+        return $query;
+    }
+
     public function save_member($insert)
     {
         $this->db->insert('member', $insert);

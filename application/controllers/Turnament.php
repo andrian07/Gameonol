@@ -3,20 +3,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Methods: GET, OPTIONS");
 
-class Dashboard extends CI_Controller {
-
-	public $csrf_name;
-	public $csrf_hash;
+class Turnament extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
 		$this->load->helper('url');
 		$this->load->library('session');
+		$this->load->model('register_model');
 		$this->load->model('global_model');
 		$this->load->model('dashboard_model');
 		$this->load->helper(array('url', 'html'));
-		$this->csrf_name = $this->security->get_csrf_token_name();
-		$this->csrf_hash = $this->security->get_csrf_hash();
 	}
 
 	private function check_auth()
@@ -56,10 +52,9 @@ class Dashboard extends CI_Controller {
 			}else{
 				$user_id  = $_SESSION['user_id'];
 				$member_data['member_data'] = $this->dashboard_model->get_member_data($user_id)->result_array();
-				$exchange_point_data['exchange_point_data'] = $this->dashboard_model->get_exchange_point_data()->result_array();
-				$promo_data['promo_data'] = $this->dashboard_model->get_promo_data()->result_array();
-				$data['data']  = array_merge($member_data, $exchange_point_data, $promo_data);
-				$this->load->view('Pages/dashboard', $data);
+				$turnament_info['turnament_info'] = $this->dashboard_model->get_turnament_info()->result_array();
+				$data['data']  = array_merge($member_data, $turnament_info);
+				$this->load->view('Pages/turnament', $data);
 			}
 		}
 	}

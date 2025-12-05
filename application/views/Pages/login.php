@@ -56,9 +56,9 @@ require DOC_ROOT_PATH . $this->config->item('header1');
 
                 <div class="form-links mt-2">
                     <div>
-                        <a href="<?php echo base_url() ?>Register">Register Now</a>
+                        Belum pnya akun?<a href="<?php echo base_url() ?>Register" style="color: hotpink;"> Register Now</a>
                     </div>
-                    <div><a href="<?php echo base_url() ?>Register/forgetpass" class="text-muted">Forgot Password?</a></div>
+                    <?php /*<div><a href="<?php echo base_url() ?>Register/forgetpass" class="text-muted">Forgot Password?</a></div>*/ ?>
                 </div>
 
                 <div class="form-button-group  transparent">

@@ -51,7 +51,7 @@ require DOC_ROOT_PATH . $this->config->item('header1');
             <div class="balance">
                 <div class="left">
                     <span class="title">Saldo Walet</span>
-                    <h1 class="total">Rp. 100.000</h1>
+                    <h1 class="total">Rp. <?php echo $data['member_data'][0]['member_saldo']; ?></h1>
                 </div>
             </div>
             <!-- * Balance -->
@@ -82,7 +82,7 @@ require DOC_ROOT_PATH . $this->config->item('header1');
                     </a>
                 </div>
                 <div class="item">
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#exchangeActionSheet">
+                    <a href="https://wa.me/6285245139056">
                         <div class="icon-wrapper bg-warning">
                             <ion-icon name="alarm-outline"></ion-icon>
                         </div>
@@ -214,81 +214,24 @@ require DOC_ROOT_PATH . $this->config->item('header1');
     </div>
     <!-- * Send Action Sheet -->
 
-    <!-- Exchange Action Sheet -->
-    <div class="modal fade action-sheet" id="exchangeActionSheet" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Exchange Money</h5>
-                </div>
-                <div class="modal-body">
-                    <div class="action-sheet-content">
-                        <form>
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="form-group basic">
-                                        <div class="input-wrapper">
-                                            <label class="label" for="currency1">From</label>
-                                            <select class="form-control custom-select" id="currency1">
-                                                <option value="1">EUR</option>
-                                                <option value="2">USD</option>
-                                                <option value="3">AUD</option>
-                                                <option value="4">CAD</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group basic">
-                                        <div class="input-wrapper">
-                                            <label class="label" for="currency2">To</label>
-                                            <select class="form-control custom-select" id="currency2">
-                                                <option value="1">USD</option>
-                                                <option value="1">EUR</option>
-                                                <option value="2">AUD</option>
-                                                <option value="3">CAD</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group basic">
-                                <label class="label">Enter Amount</label>
-                                <div class="input-group mb-2">
-                                    <span class="input-group-text" id="basic-addon2">$</span>
-                                    <input type="text" class="form-control" placeholder="Enter an amount"
-                                    value="100">
-                                </div>
-                            </div>
-
-
-
-                            <div class="form-group basic">
-                                <button type="button" class="btn btn-primary btn-block btn-lg"
-                                data-bs-dismiss="modal">Exchange</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- * Exchange Action Sheet -->
-
     <!-- Stats -->
     <div class="section">
         <div class="row mt-2">
             <div class="col-6">
                 <div class="stat-box">
                     <div class="title">Point</div>
-                    <div class="value text-success">150</div>
+                    <div class="value text-success"><?php echo $data['member_data'][0]['member_point']; ?></div>
                 </div>
             </div>
             <div class="col-6">
                 <div class="stat-box">
                     <div class="title">Sisa Waktu</div>
-                    <div class="value text-danger">30:50</div>
+                    <?php 
+                    $timeString = $data['member_data'][0]['member_remaining_time'];
+                    $time = DateTime::createFromFormat('H:i:s', $timeString);
+                    $remaining_time = $time ? $time->format('H:i') : '00:00';
+                    ?>
+                    <div class="value text-danger"><?php echo $remaining_time; ?></div>
                 </div>
             </div>
         </div>
@@ -299,38 +242,23 @@ require DOC_ROOT_PATH . $this->config->item('header1');
     <div class="section full mt-4">
         <div class="section-heading padding">
             <h2 class="title">Info</h2>
-            <a href="app-cards.html" class="link">View All</a>
+            <a href="" class="link">View All</a>
         </div>
         <!-- carousel single -->
         <div class="carousel-single splide">
             <div class="splide__track">
                 <ul class="splide__list">
 
-                    <li class="splide__slide">
-                        <!-- card block -->
-                        <div class="card-main">
-                            <img src="<?php echo base_url(); ?>assets/img/banner/promotopup.png" style="width:100%; border-radius:5% ;">
-                        </div>
-                        <!-- * card block -->
-                    </li>
+                    <?php foreach ($data['promo_data'] as $row_promo) { ?>
+                        <li class="splide__slide">
+                            <!-- card block -->
+                            <div class="card-main">
+                                <img src="<?php echo base_url(); ?>assets/img/banner/<?php echo $row_promo['ms_promo_banner_image']?>" style="width:100%; border-radius:5% ;">
+                            </div>
+                            <!-- * card block -->
+                        </li>
 
-                    <li class="splide__slide">
-                        <!-- card block -->
-                        <div class="card-main">
-                            <img src="<?php echo base_url(); ?>assets/img/banner/Tournament.png" style="width:100%; border-radius:5% ;">
-                        </div>
-                        <!-- * card block -->
-                    </li>
-
-                    <li class="splide__slide">
-                        <!-- card block -->
-                        <div class="card-main">
-                            <img src="<?php echo base_url(); ?>assets/img/banner/minuman.png" style="width:100%; border-radius:5% ;">
-                        </div>
-                        <!-- * card block -->
-                    </li>
-
-
+                    <?php  } ?>
                 </ul>
             </div>
         </div>
@@ -341,54 +269,31 @@ require DOC_ROOT_PATH . $this->config->item('header1');
     <!-- Transactions -->
     <div class="section mt-4">
         <div class="section-heading">
-            <h2 class="title">Trending Today's</h2>
-            <a href="app-transactions.html" class="link">View All</a>
-        </div><ul class="listview image-listview media">
-            <li>
-                <a href="#" class="item">
-                    <div class="imageWrapper">
-                        <img src="assets/img/sample/photo/1.jpg" alt="image" class="imaged w64">
-                    </div>
-                    <div class="in">
-                        <div>
-                            Sonic Yoga
-                            <div class="text-muted">subtext</div>
+            <h2 class="title">Tukar Point</h2>
+            <a href="" class="link">View All</a>
+        </div>
+        <ul class="listview image-listview media">
+            <?php foreach ($data['exchange_point_data'] as $row_exchage) { ?>
+                <li>
+                    <a href="#" class="item">
+                        <div class="imageWrapper">
+                            <img src="<?php echo base_url(); ?>assets/img/exchangepoint/<?php echo $row_exchage['ms_exchange_point_image']?>" alt="image" class="imaged w64">
                         </div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="item">
-                    <div class="imageWrapper">
-                        <img src="assets/img/sample/photo/2.jpg" alt="image" class="imaged w64">
-                    </div>
-                    <div class="in">
-                        <div>
-                            21 Pilates
-                            <div class="text-muted">subtext</div>
+                        <div class="in">
+                            <div>
+                                <?php echo $row_exchage['ms_exchange_point_name']?>
+                                <div class="text-muted"><?php echo $row_exchage['ms_exchange_point_point']?> Point</div>
+                            </div>
                         </div>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="item">
-                    <div class="imageWrapper">
-                        <img src="assets/img/sample/photo/3.jpg" alt="image" class="imaged w64">
-                    </div>
-                    <div class="in">
-                        <div>
-                            Striking Class
-                            <div class="text-muted">subtext</div>
-                        </div>
-                    </div>
-                </a>
-            </li>
+                    </a>
+                </li>
+            <?php } ?>
         </ul>
     </div>
     <!-- * Transactions -->
 
     <!-- app footer -->
-    <div class="appFooter">
+    <div class="appFooter" style="margin-top:10px;">
         <div class="footer-title">
             Game On Application
         </div>
@@ -399,222 +304,8 @@ require DOC_ROOT_PATH . $this->config->item('header1');
 <!-- * App Capsule -->
 
 
-<!-- App Bottom Menu -->
-<div class="appBottomMenu">
-    <a href="<?php echo base_url(); ?>Dashboard" class="item">
-        <div class="col" >
-            <ion-icon name="home-outline"></ion-icon>
-            <strong>Home</strong>
-        </div>
-    </a>
-    <a href="app-transactions.html" class="item">
-        <div class="col">
-            <ion-icon name="document-text-outline"></ion-icon>
-            <strong>Class</strong>
-        </div>
-    </a>
-    <a href="<?php echo base_url(); ?>User/absence" class="item">
-        <div class="col">
-            <div class="action-button large">
-                <ion-icon name="qr-code-outline" role="img" class="md flip-rtl hydrated"></ion-icon>
-            </div>
-            <strong>Absen</strong>
-        </div>
-    </a>
-    <a href="app-cards.html" class="item">
-        <div class="col">
-            <ion-icon name="bar-chart-outline"></ion-icon>
-            <strong>Video</strong>
-        </div>
-    </a>
-    <a href="<?php echo base_url(); ?>User/setting" class="item active">
-        <div class="col">
-            <ion-icon name="settings-outline"></ion-icon>
-            <strong>Settings</strong>
-        </div>
-    </a>
-</div>
-<!-- * App Bottom Menu -->
-
-<!-- App Sidebar -->
-<div class="modal fade panelbox panelbox-left" id="sidebarPanel" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-body p-0">
-                <!-- profile box -->
-                <div class="profileBox pt-2 pb-2">
-                    <div class="image-wrapper">
-                        <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="imaged  w36">
-                    </div>
-                    <div class="in">
-                        <strong>Adrian</strong>
-                        <div class="text-muted">4029209</div>
-                    </div>
-                    <a href="#" class="btn btn-link btn-icon sidebar-close" data-bs-dismiss="modal">
-                        <ion-icon name="close-outline"></ion-icon>
-                    </a>
-                </div>
-                <!-- * profile box -->
-                <!-- balance -->
-                <div class="sidebar-balance">
-                    <div class="listview-title">Balance</div>
-                    <div class="in">
-                        <h1 class="amount">100.000</h1>
-                    </div>
-                </div>
-                <!-- * balance -->
-
-
-
-                <!-- menu -->
-                <div class="listview-title mt-1">Menu</div>
-                <ul class="listview flush transparent no-line image-listview">
-                    <li>
-                        <a href="index.html" class="item">
-                            <div class="icon-box bg-primary">
-                                <ion-icon name="home-outline"></ion-icon>
-                            </div>
-
-                            <div class="in">
-                                Home
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="app-pages.html" class="item">
-                            <div class="icon-box bg-primary">
-                                <ion-icon name="document-text-outline"></ion-icon>
-                            </div>
-                            <div class="in">
-                                Transaksi
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="app-components.html" class="item">
-                            <div class="icon-box bg-primary">
-                                <ion-icon name="diamond-outline"></ion-icon>
-                            </div>
-                            <div class="in">
-                                Turnament
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-                <!-- * menu -->
-
-                <!-- others -->
-                <div class="listview-title mt-1">Others</div>
-                <ul class="listview flush transparent no-line image-listview">
-                    <li>
-                        <a href="app-settings.html" class="item">
-                            <div class="icon-box bg-primary">
-                                <ion-icon name="settings-outline"></ion-icon>
-                            </div>
-                            <div class="in">
-                                Settings
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="component-messages.html" class="item">
-                            <div class="icon-box bg-primary">
-                                <ion-icon name="chatbubble-outline"></ion-icon>
-                            </div>
-                            <div class="in">
-                                Support
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="<?php echo base_url();?>Auth/logout" class="item">
-                            <div class="icon-box bg-primary">
-                                <ion-icon name="log-out-outline"></ion-icon>
-                            </div>
-                            <div class="in">
-                                Log out
-                            </div>
-                        </a>
-                    </li>
-
-
-                </ul>
-                <!-- * others -->
-
-
-            </div>
-        </div>
-    </div>
-</div>
-<!-- * App Sidebar -->
-
-
-
-<!-- iOS Add to Home Action Sheet -->
-<div class="modal inset fade action-sheet ios-add-to-home" id="ios-add-to-home-screen" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Add to Home Screen</h5>
-                <a href="#" class="close-button" data-bs-dismiss="modal">
-                    <ion-icon name="close"></ion-icon>
-                </a>
-            </div>
-            <div class="modal-body">
-                <div class="action-sheet-content text-center">
-                    <div class="mb-1"><img src="<?php echo base_url();?>assets/img/logo.png" alt="image" class="imaged w64 mb-2">
-                    </div>
-                    <div>
-                        Install <strong>Ellunagym</strong> on your iPhone's home screen.
-                    </div>
-                    <div>
-                        Tap <ion-icon name="share-outline"></ion-icon> and Add to homescreen.
-                    </div>
-                    <div class="mt-2">
-                        <button class="btn btn-primary btn-block" data-bs-dismiss="modal" id="installBtn">Install</button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</div>
-<!-- * iOS Add to Home Action Sheet -->
-
-
-<!-- Android Add to Home Action Sheet -->
-<div class="modal inset fade action-sheet android-add-to-home" id="android-add-to-home-screen" tabindex="-1"
-role="dialog">
-<div class="modal-dialog" role="document">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title">Add to Home Screen</h5>
-            <a href="#" class="close-button" data-bs-dismiss="modal">
-                <ion-icon name="close"></ion-icon>
-            </a>
-        </div>
-        <div class="modal-body">
-            <div class="action-sheet-content text-center">
-                <div class="mb-1">
-                    <img src="<?php echo base_url();?>assets/img/logo.png" alt="image" class="imaged w64 mb-2">
-                </div>
-                <div>
-                    Install <strong>Ellunagym</strong> on your Android's home screen.
-                </div>
-                <div>
-                    Tap <ion-icon name="ellipsis-vertical"></ion-icon> and Add to homescreen.
-                </div>
-                <div class="mt-2">
-                    <button class="btn btn-primary btn-block" data-bs-dismiss="modal">CLOSE</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-<!-- * Android Add to Home Action Sheet -->
-
 <?php 
+require DOC_ROOT_PATH . $this->config->item('botmenu');
 require DOC_ROOT_PATH . $this->config->item('footer1');
 ?>
 <script>
