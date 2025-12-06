@@ -45,7 +45,7 @@ require DOC_ROOT_PATH . $this->config->item('header1');
         <div class="section mt-2">
             <?php foreach ($data['turnament_info'] as $row_turney) { ?>
                 <!-- card block -->
-                <div class="card-block mb-2" style="height: 201px; !important">
+                <div class="card-block mb-2" style="height: 220px; !important">
                     <div class="card-main">
                         <img src="<?php echo base_url(); ?>assets/img/Turney/<?php echo $row_turney['ms_turnament_image']?>" style="width:100%;">
                     </div>

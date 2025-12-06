@@ -82,7 +82,7 @@ require DOC_ROOT_PATH . $this->config->item('header1');
                     </a>
                 </div>
                 <div class="item">
-                    <a href="https://wa.me/6285245139056">
+                    <a href="https://wa.me/6285249308015?text=Halo%2C%20saya%20ingin%20booking.">
                         <div class="icon-wrapper bg-warning">
                             <ion-icon name="alarm-outline"></ion-icon>
                         </div>
@@ -160,7 +160,7 @@ require DOC_ROOT_PATH . $this->config->item('header1');
                             </div>
 
                             <div class="form-group basic">
-                                <button type="button" class="btn btn-primary btn-block btn-lg"
+                                <button type="button" id="topup" class="btn btn-primary btn-block btn-lg"
                                 data-bs-dismiss="modal">Top Up</button>
                             </div>
                         </form>
